@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surya Pratap Singh | Portfolio</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Refined Dark-Muted Palette */
+    :root {
+      --bg: #0f0f1f;
+      --fg: #e2e2e2;
+      --accent-primary: #846c5b;
+      --accent-secondary: #5f7f7f;
+      --panel-bg: #1a1a2e;
+      --panel-bg-alt: #24243e;
+      --transition: 0.4s ease-in-out;
+      --texture: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body {
+      margin: 0;
+      background: var(--bg) var(--texture);
+      color: var(--fg);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: var(--fg); transition: color var(--transition); }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+      background: var(--panel-bg) var(--texture);
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .logo { color: var(--accent-secondary); font-size: 1.5rem; font-weight: 600; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { position: relative; padding: 0.4rem; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 100%; height: 2px; background: var(--accent-primary);
+    }
+    .hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+    }
+
+    /* HERO */
+    .hero {
+      padding-top: 100px; min-height: 100vh;
+      background: var(--bg) var(--texture);
+      text-align: center; display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      position: relative;
+    }
+    .hero h1 { font-size: 2.8rem; color: var(--accent-secondary); margin-bottom: 0.5rem; }
+    .hero .subtitle {
+      font-size: 1.3rem; color: var(--accent-primary);
+      margin-bottom: 1.5rem; max-width: 600px;
+    }
+        /* Learn More button within hero flow */
+    .hero button {
+      /* relative within hero */
+      position: relative;
+      margin-top: 2rem;
+      background: var(--accent-primary);
+      border: none;
+      color: var(--panel-bg);
+      padding: 1rem 2rem;
+      font-size: 1.3rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition);
+    }
+    .hero button:hover {
+      background: var(--accent-secondary);
+      transform: scale(1.05);
+    }
+    .hero button:hover {
+      background: var(--accent-secondary); transform: translateX(-50%) scale(1.05);
+    }
+
+    /* SECTIONS */
+    section { padding: 8rem 5%; }
+
+    /* ABOUT */
+    #about   {
+      background: var(--panel-bg-alt) var(--texture); border-radius: 12px;
+      color: var(--fg); text-align: center;
+    }
+    .about-content {
+      display: flex; align-items: center; gap: 1rem;
+      max-width: 700px; margin: 1.5rem auto;
+      flex-wrap: nowrap;
+    }
+    .about-content p {
+      flex: 1;
+      text-align: left;
+    }
+    .about-img {
+      width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+    }
+
+
+    /* PROJECTS */
+    #projects h2 { text-align: center; margin-bottom: 2rem; color: var(--accent-secondary); }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--panel-bg-alt) var(--texture); padding: 1rem;
+      border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform var(--transition), opacity var(--transition);
+      opacity: 0; transform: translateY(20px);
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card h3 { color: var(--accent-primary); margin-bottom: 0.6rem; }
+    .project-card p { margin-bottom: 1rem; }
+    .project-card .links a {
+      margin-right: 0.6rem; padding: 0.3rem 0.7rem; font-size: 0.9rem;
+      color: var(--fg); border: 1px solid var(--accent-secondary);
+      border-radius: 5px; transition: background var(--transition), color var(--transition);
+    }
+    .project-card .links a:hover { background: var(--accent-secondary); color: var(--panel-bg); }
+
+    /* SKILLS */
+    #skills h2 { text-align: center; margin-bottom: 2rem; color: var(--accent-secondary); }
+    .skills-container {
+      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+    }
+    .skill-item {
+      background: var(--panel-bg-alt) var(--texture);
+      padding: 0.8rem 1.5rem; border-radius: 18px;
+      display: flex; align-items: center; gap: 0.8rem;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .skill-item:hover {
+      background: var(--accent-primary); transform: scale(1.05);
+    }
+    /* Additional "Work in Progress" tag */
+    .skill-item.work-in-progress {
+      border: 1px dashed var(--accent-secondary);
+      font-style: italic;
+    }
+
+    /* CONTACT */
+    #contact h2 { text-align: center; margin-bottom: 2rem; color: var(--accent-secondary); }
+    .contact-form {
+      max-width: 400px; margin: 0 auto;
+      background: var(--panel-bg-alt) var(--texture); padding: 2rem;
+      border-radius: 10px; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .contact-form input, .contact-form textarea {
+      background: var(--panel-bg); border: none; border-radius: 6px;
+      padding: 0.8rem; color: var(--fg);
+    }
+    .contact-form button {
+      background: var(--accent-primary); border: none;
+      padding: 0.8rem; border-radius: 6px; color: var(--panel-bg);
+      cursor: pointer; transition: background var(--transition);
+    }
+    .contact-form button:hover { background: var(--accent-secondary); }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 1.5rem;
+      background: var(--panel-bg) var(--texture);
+    }
+    .social-links { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; }
+    .social-links a { font-size: 1.4rem; color: var(--fg); transition: color var(--transition); }
+    .social-links a:hover { color: var(--accent-primary); }
+  </style>
+</head>
+<body>
+  <!-- <nav id="navbar">
+    <div class="logo"><i class="fas fa-code"></i> Code in Progress</div> -->
+    <!-- <div class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div> -->
+    <nav id="navbar">
+  <div class="logo"><i class="fas fa-code"></i> Code in Progress</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+</nav>
+
+    <!-- <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+  </nav> -->
+
+  <section id="home">
+    <div class="hero">
+      <h1>Hey I'm Surya Pratap Singh</h1>
+      <h2 class="typing"></h2>
+      <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Learn More</button>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <img src="me.jpg" alt="Surya Pratap Singh" class="about-img">
+      <p>I'm pursuing B.Tech in Computer Science and Engineering at South Asian University (2024 - 2028). Skilled in HTML, CSS, JavaScript, and building simple utilities with Python. I actively explore data structures & algorithms and aim to become a proficient full-stack developer.</p>
+    </div>
+  </section>
+  <section id="education">
+    <h2 style="text-align: center;">Education</h2>
+    <div class="education-content" style="text-align: center; max-width: 700px; margin: 0 auto; background: var(--panel-bg-alt); padding: 1.5rem; border-radius: 12px;">
+        <p><strong>Higher Secondary Schooling</strong></p>
+        <p>St. Francis School, Hathras, UP</p>
+        <p>Completed my higher secondary education with a focus on science and mathematics.</p>
+        <hr style="border: 0; border-top: 1px solid var(--accent-secondary); margin: 1.5rem 0;">
+        <p><strong>B.Tech in Computer Science and Engineering</strong></p>
+        <p>South Asian University, 2024 - 2028</p>
+        <p>Currently pursuing my undergraduate degree with a focus on software development and data structures.</p>
+    </div>
+</section>
+
+<!-- <section id="experience" style="  background: var(--panel-bg-alt) var(--texture); border-radius: 12px;
+      color: var(--fg); text-align: center;">
+    <h2>Experience</h2>
+    <div class="experience-content" style="text-align: center; max-width: 700px; margin: 0 auto; background: var(--panel-bg-alt); padding: 1.5rem; border-radius: 12px;">
+        <p>As a first-year student, I am actively building my skills through personal projects, online courses, and participation in coding challenges. I aim to gain professional experience through internships and collaborative projects in the near future.</p>
+    </div>
+</section> -->
+<section id="experience" style="background: var(--panel-bg-alt) var(--texture); border-radius: 12px;
+  color: var(--fg); text-align: center;">
+  <h2>Experience</h2>
+
+  <!-- Technical Experience -->
+  <div class="experience-content" style="text-align: center; max-width: 700px; margin: 0 auto; background: var(--panel-bg-alt); padding: 1.5rem; border-radius: 12px;">
+    <p>As a first-year student, I’m actively exploring the tech world by working on personal projects, completing online certifications, and participating in coding challenges. I’m continually improving my core programming and problem-solving skills in preparation for internships and collaborative opportunities.</p>
+  </div>
+
+  <!-- Divider Line -->
+  <hr style="border: 1px solid var(--fg); max-width: 60%; margin: 2rem auto; opacity: 0.2;">
+
+  <!-- Soft Skills & Volunteering -->
+  <div class="experience-content" style="text-align: center; max-width: 700px; margin: 0 auto; background: var(--panel-bg-alt); padding: 1.5rem; border-radius: 12px;">
+    <p>Alongside my technical journey, I’ve also been involved in activities that strengthen my soft skills. Through volunteering with <strong>GLS</strong> and <strong>SPIC MACAY</strong>, I’ve developed better communication, networking, and organizational abilities. These experiences have helped me become more confident in team settings and more adaptable in diverse environments.</p>
+  </div>
+</section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Portfolio Website</h3>
+        <p>My personal site demonstrating skills and projects.</p>
+        <div class="links"><a href="#">Live</a><a href="#">Code</a></div>
+      </div>
+      <div class="project-card">
+        <h3>PNC Calculator</h3>
+        <p>A console app computing permutations, combinations, and factorials.</p>
+        <div class="links"><a href="#">Code</a></div>
+      </div>
+      <div class="project-card">
+        <h3>A Mini Java Script Project </h3>
+        <p>Containing different finctional code of JS.</p>
+        <div class="links"><a href="#">Code</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-container">
+      <div class="skill-item"><i class="fab fa-html5"></i><span>HTML</span></div>
+      <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS</span></div>
+      <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+      <div class="skill-item"><i class="fas fa-code"></i><span>DSA</span></div>
+      <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
+      <div class="skill-item work-in-progress"><i class="fas fa-spinner"></i><span>Work in Progress</span></div>
+    </div>
+  </section> -->
+<section id="skills">
+  <h2>Skills</h2>
+
+  <!-- Technical Skills -->
+  <div class="skills-container">
+    <div class="skill-item"><i class="fab fa-html5"></i><span>HTML</span></div>
+    <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS</span></div>
+    <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+    <div class="skill-item"><i class="fas fa-code"></i><span>DSA</span></div>
+    <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
+    <div class="skill-item"><i class="fas fa-c"></i><span>Programming</span></div>
+    <div class="skill-item work-in-progress"><i class="fas fa-spinner"></i><span>Work in Progress</span></div>
+  </div>
+
+  <!-- Soft Skills -->
+  <h3 style="margin-top: 2rem; text-align: center;">Soft Skills</h3>
+  <div class="skills-container">
+    <div class="skill-item"><i class="fas fa-hands-helping"></i><span>Volunteering</span></div>
+    <div class="skill-item"><i class="fas fa-comments"></i><span>Communication</span></div>
+    <div class="skill-item"><i class="fas fa-network-wired"></i><span>Networking</span></div>
+    <div class="skill-item"><i class="fas fa-users"></i><span>Teamwork</span></div>
+    <div class="skill-item"><i class="fas fa-lightbulb"></i><span>Problem Solving</span></div>
+    <div class="skill-item"><i class="fas fa-brain"></i><span>Adaptability</span></div>
+  </div>
+</section>
+
+
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://github.com/Namenotvisible"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/surya-p-singh-95176b343?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+      <a href="https://x.com/NamenotVisible?s=08"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/s.p.singh07?igsh=MTVlcjVnNDl6bjl4Zg=="><i class="fab fa-instagram"></i></a>
+      <a href="mailto:suryapratap@students.sau.ac.in"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>&copy; 2025 Surya Pratap Singh</p>
+  </footer>
+
+  <script>
+    // Typing effect for hero subtitle
+    const phrases = ['Web Developer ' , 'Tech Enthusiast ', 'Problem Solver ' , 'A Work in Progress '];
+    let idx = 0, charIdx = 0, deleting = false;
+    const typingEl = document.querySelector('.typing');
+    function typeEffect() {
+      const current = phrases[idx];
+      typingEl.textContent = deleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+      if (!deleting && charIdx === current.length) {
+        deleting = true;
+        setTimeout(typeEffect, 500);
+        return;
+      }
+      if (deleting && charIdx === 0) {
+        deleting = false;
+        idx = (idx + 1) % phrases.length;
+      }
+      setTimeout(typeEffect, deleting ? 50 : 150);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      typeEffect();
+      // Scroll-reveal observer
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.2 });
+      document.querySelectorAll('.project-card, .skill-item').forEach(el => observer.observe(el));
+    });
+
+    // Smooth nav scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html> 
